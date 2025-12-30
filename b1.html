@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>俺物語１話 - 내이야기 1 화</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", serif;
+            background-color: #fefefe;
+            padding: 40px 20px;
+            line-height: 2.2;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .title {
+            font-size: 42px;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 30px;
+            color: #34495e;
+            font-weight: 500;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .story-content {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .korean-text {
+            font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+            color: #14532d;
+            font-weight: bold;
+        }
+
+        ruby {
+            ruby-align: center;
+        }
+
+        rt {
+            font-size: 0.56em;
+            color: #1e40af;
+            font-weight: normal;
+            font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+        }
+
+        .grammar-section {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .grammar-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 15px;
+        }
+
+        .grammar-subtitle {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        .grammar-content {
+            padding-left: 20px;
+            font-size: 20px;
+        }
+
+        .usage-item {
+            padding-left: 40px;
+            margin: 8px 0;
+            font-size: 19px;
+        }
+
+        .example {
+            background: white;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .example-text {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #cbd5e1 30%, #94a3b8 50%, #cbd5e1 70%, transparent);
+            margin: 30px 0;
+        }
+
+        .question-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 10%, #e2e8f0 40%, #cbd5e1 50%, #e2e8f0 60%, transparent 90%);
+            margin: 20px 0;
+        }
+
+        .question {
+            margin: 25px 0;
+            padding: 20px;
+            background: #fefefe;
+            border-radius: 8px;
+        }
+
+        .question-text {
+            font-size: 21px;
+            margin-bottom: 10px;
+        }
+
+        .question-hint {
+            padding-left: 20px;
+            font-size: 18px;
+            color: #64748b;
+            margin: 5px 0;
+        }
+
+        .vocabulary-section {
+            background: #f0fdf4;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .vocab-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #14532d;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .vocab-item {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #22c55e;
+        }
+
+        .vocab-word {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .vocab-example {
+            font-size: 19px;
+            padding-left: 15px;
+            margin: 8px 0;
+        }
+
+        .export-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+            font-family: "Apple SD Gothic Neo", sans-serif;
+        }
+
+        .export-button:hover {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+        }
+
+        @media print {
+            @page {
+                margin: 0;
+                size: auto;
+            }
+
+            .export-button {
+                display: none;
+            }
+
+            body {
+                padding: 10;
+                margin: 0;
+                background-color: white;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+                margin: 10;
+                max-width: 100%;
+            }
+
+            .grammar-subtitle {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="export-button" onclick="window.print()">📥 PDF 내보내기</button>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">俺物語１話</h1>
+            <h2 class="subtitle">내이야기 1 화</h2>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">줄거리</h3>
+            <p class="story-content">
+                <ruby>主人公<rt>しゅじんこう</rt></ruby>の <ruby>剛田猛男<rt>ごうだ たけお</rt></ruby>は、<ruby>体<rt>からだ</rt></ruby>が <ruby>大<rt>おお</rt></ruby>きくてこわそうな<ruby>高校生<rt>こうこうせい</rt></ruby>です。 でも、<ruby>本当<rt>ほんとう</rt></ruby>は とてもやさしくて まじめな<ruby>性格<rt>せいかく</rt></ruby>です。
+            </p>
+            <p class="story-content">
+                <ruby>親友<rt>しんゆう</rt></ruby>の <ruby>砂川<rt>すなかわ</rt></ruby>は イケメンで、いつも<ruby>女<rt>おんな</rt></ruby>の<ruby>子<rt>こ</rt></ruby>に<ruby>人気<rt>にんき</rt></ruby>があります。
+            </p>
+            <p class="story-content">
+                ある<ruby>日<rt>ひ</rt></ruby>、<ruby>猛男<rt>たけお</rt></ruby>は <ruby>電車<rt>でんしゃ</rt></ruby>で <ruby>困<rt>こま</rt></ruby>っている <ruby>女<rt>おんな</rt></ruby>の<ruby>子<rt>こ</rt></ruby>・<ruby>大和凛子<rt>やまと りんこ</rt></ruby>を <ruby>助<rt>たす</rt></ruby>けます。 <ruby>猛男<rt>たけお</rt></ruby>は <ruby>凛子<rt>りんこ</rt></ruby>を <ruby>好<rt>す</rt></ruby>きになりますが、「どうせ <ruby>砂川<rt>すなかわ</rt></ruby>が <ruby>好<rt>す</rt></ruby>きだろう」と <ruby>思<rt>おも</rt></ruby>ってしまいます。
+            </p>
+            <p class="story-content korean-text">
+                주인공 고다 다케오는 덩치가 크고 무섭게 생긴 고등학생입니다.<br>
+                하지만 사실은 아주 착하고 성실한 성격이에요.<br>
+                절친 스나카와는 잘생겨서 항상 여자들에게 인기가 많습니다.<br>
+                어느 날, 다케오는 전철에서 곤란해하던 야마토 린코를 도와줍니다.<br>
+                다케오는 린코를 좋아하게 되지만<br>
+                "어차피 스나카와를 좋아하겠지"라고 생각해 버립니다.
+            </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h3 class="section-title">🎧 しゃどーいんぐ表現（ひょうげん）</h3>
+
+            <div class="grammar-section">
+                <div class="grammar-title">① 〜そうです（〜そうです / ~해 보이다）</div>
+                
+                <div class="grammar-subtitle">👉 <ruby>意味<rt>いみ</rt></ruby> / 의미</div>
+                <div class="grammar-content">
+                    <ruby>見<rt>み</rt></ruby>た<ruby>目<rt>め</rt></ruby>・지금 상황을 보고 판단<br>
+                    → ~해 보이다
+                </div>
+
+                <div class="grammar-subtitle">🔑 <ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby> / 사용법</div>
+                <div class="usage-item">• い<ruby>形容詞<rt>けいようし</rt></ruby>い형용사 👉 い 빼고 + そうです</div>
+                <div class="usage-item">• な<ruby>形容詞<rt>けいようし</rt></ruby>な형용사 👉 な 빼고+ そうです</div>
+                <div class="usage-item">• <ruby>動詞<rt>どうし</rt></ruby>동사 👉 ます형 빼고 + そうです</div>
+
+                <div class="grammar-subtitle">🔹 <ruby>例文<rt>れいぶん</rt></ruby> / 예문</div>
+                <div class="example">
+                    <div class="example-text">• このケーキは <ruby>甘<rt>あま</rt></ruby>そうです。</div>
+                    <div class="example-text korean-text">👉 이 케이크 달아 보여요.</div>
+                </div>
+                <div class="example">
+                    <div class="example-text">• <ruby>雨<rt>あめ</rt></ruby>が <ruby>降<rt>ふ</rt></ruby>りそうです。</div>
+                    <div class="example-text korean-text">👉 비가 올 것 같아요.</div>
+                </div>
+                <div class="example">
+                    <div class="example-text">• あの<ruby>人<rt>ひと</rt></ruby>は やさしそうです。</div>
+                    <div class="example-text korean-text">👉 저 사람 착해 보여요.</div>
+                </div>
+            </div>
+
+            <div class="grammar-section">
+                <div class="grammar-title">② 〜と<ruby>思<rt>おも</rt></ruby>います（〜と おもいます / ~라고 생각합니다）</div>
+                
+                <div class="grammar-subtitle">👉 <ruby>意味<rt>いみ</rt></ruby> / 의미</div>
+                <div class="grammar-content">
+                    <ruby>自分<rt>じぶん</rt></ruby>の 생각・의견<br>
+                    → ~라고 생각하다
+                </div>
+
+                <div class="grammar-subtitle">🔑 <ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby> / 사용법</div>
+                <div class="usage-item">• <ruby>普通形<rt>ふつうけい</rt></ruby> + と<ruby>思<rt>おも</rt></ruby>います</div>
+
+                <div class="grammar-subtitle">🔹 <ruby>例文<rt>れいぶん</rt></ruby> / 예문</div>
+                <div class="example">
+                    <div class="example-text">• <ruby>猛男<rt>たけお</rt></ruby>は やさしい<ruby>人<rt>ひと</rt></ruby>だと <ruby>思<rt>おも</rt></ruby>います。</div>
+                    <div class="example-text korean-text">👉 다케오는 착한 사람이라고 생각해요.</div>
+                </div>
+                <div class="example">
+                    <div class="example-text">• <ruby>恋<rt>こい</rt></ruby>は <ruby>中身<rt>なかみ</rt></ruby>が <ruby>大事<rt>だいじ</rt></ruby>だと <ruby>思<rt>おも</rt></ruby>います。</div>
+                    <div class="example-text korean-text">👉 사랑은 성격이 중요하다고 생각해요.</div>
+                </div>
+                <div class="example">
+                    <div class="example-text">• その<ruby>映画<rt>えいが</rt></ruby>は おもしろいと <ruby>思<rt>おも</rt></ruby>います。</div>
+                    <div class="example-text korean-text">👉 그 영화 재미있다고 생각해요.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h3 class="section-title">💬 フリートーク</h3>
+
+            <div class="question">
+                <div class="question-text"><ruby>剛田<rt>ごうだ</rt></ruby> <ruby>猛男<rt>たけお</rt></ruby>は <ruby>強<rt>つよ</rt></ruby>そうだと <ruby>思<rt>おも</rt></ruby>いますか？</div>
+                <div class="question-text korean-text">👉 고다 다케오는 강해 보인다고 생각해요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、とても <ruby>強<rt>つよ</rt></ruby>そうだと <ruby>思<rt>おも</rt></ruby>います.</div>
+                <div class="question-hint korean-text">단어・<ruby>文法<rt>ぶんぽう</rt></ruby>：<ruby>強<rt>つよ</rt></ruby>い 강하다</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">② <ruby>猛男<rt>たけお</rt></ruby>は <ruby>優<rt>やさ</rt></ruby>しい <ruby>人<rt>ひと</rt></ruby>だと <ruby>思<rt>おも</rt></ruby>いますか？</div>
+                <div class="question-text korean-text">👉 다케오는 착한 사람이라고 생각해요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、とても <ruby>優<rt>やさ</rt></ruby>しいと <ruby>思<rt>おも</rt></ruby>います.</div>
+                <div class="question-hint korean-text">단어：<ruby>優<rt>やさ</rt></ruby>しい 착하다</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">③ <ruby>猛男<rt>たけお</rt></ruby>は モテないと <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 다케오는 인기가 없다고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、モテないと <ruby>思<rt>おも</rt></ruby>いました.</div>
+                <div class="question-hint korean-text">단어：モテる 인기 있다</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">④ <ruby>砂川<rt>すながわ</rt></ruby>は かっこいいと <ruby>思<rt>おも</rt></ruby>いますか？</div>
+                <div class="question-text korean-text">👉 스나카와는 멋있다고 생각해요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、とても かっこいいと <ruby>思<rt>おも</rt></ruby>います.</div>
+                <div class="question-hint korean-text">단어：かっこいい 멋있다</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑤ <ruby>砂川<rt>すながわ</rt></ruby>は <ruby>女<rt>おんな</rt></ruby>の <ruby>人<rt>ひと</rt></ruby>に <ruby>人気<rt>にんき</rt></ruby>が あると <ruby>思<rt>おも</rt></ruby>いますか？</div>
+                <div class="question-text korean-text">👉 스나카와는 여자한테 인기가 많다고 생각해요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、<ruby>人気<rt>にんき</rt></ruby>が あると <ruby>思<rt>おも</rt></ruby>います.</div>
+                <div class="question-hint korean-text">단어：<ruby>人気<rt>にんき</rt></ruby> 인기</div>
+            </div>
+
+            <!-- Questions 6-20 continue with same pattern -->
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑥ <ruby>大和<rt>やまと</rt></ruby>は かわいいと <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 야마토는 귀엽다고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、とても かわいいと <ruby>思<rt>おも</rt></ruby>いました.</div>
+                <div class="question-hint korean-text">단어：かわいい 귀엽다</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑦ <ruby>大和<rt>やまと</rt></ruby>は <ruby>優<rt>やさ</rt></ruby>しい <ruby>性格<rt>せいかく</rt></ruby>だと <ruby>思<rt>おも</rt></ruby>いますか？</div>
+                <div class="question-text korean-text">👉 야마토는 성격이 착하다고 생각해요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、<ruby>優<rt>やさ</rt></ruby>しいと <ruby>思<rt>おも</rt></ruby>います.</div>
+                <div class="question-hint korean-text">단어：<ruby>性格<rt>せいかく</rt></ruby> 성격</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑧ <ruby>猛男<rt>たけお</rt></ruby>は <ruby>正直<rt>しょうじき</rt></ruby>だと <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 다케오는 솔직하다고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、とても <ruby>正直<rt>しょうじき</rt></ruby>だと <ruby>思<rt>おも</rt></ruby>いました.</div>
+                <div class="question-hint korean-text">단어：<ruby>正直<rt>しょうじき</rt></ruby> 솔직하다</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑨ <ruby>猛男<rt>たけお</rt></ruby>の <ruby>行動<rt>こうどう</rt></ruby>は すごいと <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 다케오의 행동은 대단하다고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、すごいと <ruby>思<rt>おも</rt></ruby>いました.</div>
+                <div class="question-hint korean-text">단어：<ruby>行動<rt>こうどう</rt></ruby> 행동</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑩ <ruby>電車<rt>でんしゃ</rt></ruby>の シーンは <ruby>感動的<rt>かんどうてき</rt></ruby>だと <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 전철 장면은 감동적이라고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、とても <ruby>感動的<rt>かんどうてき</rt></ruby>でした.</div>
+                <div class="question-hint korean-text">단어：<ruby>感動的<rt>かんどうてき</rt></ruby> 감동적이다</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑪ <ruby>猛男<rt>たけお</rt></ruby>は <ruby>自分<rt>じぶん</rt></ruby>に <ruby>自信<rt>じしん</rt></ruby>が ないと <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 다케오는 자신감이 없다고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、あまり <ruby>自信<rt>じしん</rt></ruby>が ないと <ruby>思<rt>おも</rt></ruby>いました.</div>
+                <div class="question-hint korean-text">단어：<ruby>自信<rt>じしん</rt></ruby> 자신</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑫ <ruby>砂川<rt>すながわ</rt></ruby>は <ruby>良<rt>よ</rt></ruby>い <ruby>友達<rt>ともだち</rt></ruby>だと <ruby>思<rt>おも</rt></ruby>いますか？</div>
+                <div class="question-text korean-text">👉 스나카와는 좋은 친구라고 생각해요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、とても <ruby>良<rt>よ</rt></ruby>い <ruby>友達<rt>ともだち</rt></ruby>だと <ruby>思<rt>おも</rt></ruby>います.</div>
+                <div class="question-hint korean-text">단어：<ruby>友達<rt>ともだち</rt></ruby> 친구</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑬ この アニメは <ruby>面白<rt>おもしろ</rt></ruby>いと <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 이 애니메이션 재밌다고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、とても <ruby>面白<rt>おもしろ</rt></ruby>いと <ruby>思<rt>おも</rt></ruby>いました.</div>
+                <div class="question-hint korean-text">단어：<ruby>面白<rt>おもしろ</rt></ruby>い 재미있다</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑭ <ruby>笑<rt>わら</rt></ruby>える シーンが <ruby>多<rt>おお</rt></ruby>いと <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 웃긴 장면이 많다고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、たくさん ありました.</div>
+                <div class="question-hint korean-text">단어：<ruby>笑<rt>わら</rt></ruby>える 웃기다</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑮ <ruby>猛男<rt>たけお</rt></ruby>は ヒーローみたいだと <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 다케오는 히어로 같다고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、ヒーローみたいだと <ruby>思<rt>おも</rt></ruby>いました.</div>
+                <div class="question-hint korean-text">단어：ヒーロー 영웅</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑯ <ruby>大和<rt>やまと</rt></ruby>は <ruby>猛男<rt>たけお</rt></ruby>に <ruby>好意<rt>こうい</rt></ruby>を <ruby>持<rt>も</rt></ruby>っていると <ruby>思<rt>おも</rt></ruby>いますか？</div>
+                <div class="question-text korean-text">👉 야마토는 다케오를 좋아한다고 생각해요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、<ruby>好意<rt>こうい</rt></ruby>が あると <ruby>思<rt>おも</rt></ruby>います.</div>
+                <div class="question-hint korean-text">단어：<ruby>好意<rt>こうい</rt></ruby> 호감</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑰ この <ruby>話<rt>はなし</rt></ruby>は <ruby>心<rt>こころ</rt></ruby>が あたたかくなると <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 이 이야기는 마음이 따뜻해진다고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、あたたかくなりました.</div>
+                <div class="question-hint korean-text">단어：<ruby>心<rt>こころ</rt></ruby> 마음</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑱ <ruby>猛男<rt>たけお</rt></ruby>の <ruby>見<rt>み</rt></ruby>た<ruby>目<rt>め</rt></ruby>は <ruby>怖<rt>こわ</rt></ruby>いと <ruby>思<rt>おも</rt></ruby>いましたか？</div>
+                <div class="question-text korean-text">👉 다케오의 외모는 무섭다고 생각했어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、ちょっと <ruby>怖<rt>こわ</rt></ruby>いと <ruby>思<rt>おも</rt></ruby>いました.</div>
+                <div class="question-hint korean-text">단어：<ruby>見<rt>み</rt></ruby>た<ruby>目<rt>め</rt></ruby> 외모</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑲ <ruby>続<rt>つづ</rt></ruby>きが <ruby>気<rt>き</rt></ruby>になる アニメだと <ruby>思<rt>おも</rt></ruby>いますか？</div>
+                <div class="question-text korean-text">👉 다음 화가 궁금해지는 애니라고 생각해요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、とても <ruby>気<rt>き</rt></ruby>になります.</div>
+                <div class="question-hint korean-text">단어：<ruby>気<rt>き</rt></ruby>になる 궁금하다</div>
+            </div>
+
+            <div class="question-divider"></div>
+
+            <div class="question">
+                <div class="question-text">⑳ この <ruby>作品<rt>さくひん</rt></ruby>を <ruby>人<rt>ひと</rt></ruby>に おすすめしたいですか？</div>
+                <div class="question-text korean-text">👉 이 작품 다른 사람한테 추천하고 싶어요?</div>
+                <div class="question-hint">ヒント：はい・いいえ</div>
+                <div class="question-hint"><ruby>答<rt>こた</rt></ruby>え<ruby>方<rt>かた</rt></ruby>：はい、ぜひ おすすめしたいです.</div>
+                <div class="question-hint korean-text">단어：<ruby>作品<rt>さくひん</rt></ruby> 작품</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="vocabulary-section">
+            <h3 class="vocab-title">📖 <ruby>単語<rt>たんご</rt></ruby> 단어</h3>
+
+            <div class="vocab-item">
+                <div class="vocab-word"><ruby>主人公<rt>しゅじんこう</rt></ruby> — <span class="korean-text">주인공</span></div>
+                <div class="vocab-example"><ruby>例<rt>れい</rt></ruby>：この<ruby>映画<rt>えいが</rt></ruby>の<ruby>主人公<rt>しゅじんこう</rt></ruby>は<ruby>学生<rt>がくせい</rt></ruby>です。</div>
+                <div class="vocab-example korean-text">👉 이 영화의 주인공은 학생이에요.</div>
+            </div>
+
+            <div class="vocab-item">
+                <div class="vocab-word"><ruby>体<rt>からだ</rt></ruby> — <span class="korean-text">몸</span></div>
+                <div class="vocab-example"><ruby>例<rt>れい</rt></ruby>：<ruby>最近<rt>さいきん</rt></ruby>、<ruby>体<rt>からだ</rt></ruby>が<ruby>疲<rt>つか</rt></ruby>れています。</div>
+                <div class="vocab-example korean-text">👉 요즘 몸이 피곤해요.</div>
+            </div>
+
+            <div class="vocab-item">
+                <div class="vocab-word">こわそう — <span class="korean-text">무서워 보이다</span></div>
+                <div class="vocab-example"><ruby>例<rt>れい</rt></ruby>：あの<ruby>人<rt>ひと</rt></ruby>、ちょっとこわそうに<ruby>見<rt>み</rt></ruby>える。</div>
+                <div class="vocab-example korean-text">👉 저 사람, 조금 무서워 보여.</div>
+            </div>
+
+            <div class="vocab-item">
+                <div class="vocab-word">やさしい — <span class="korean-text">다정하다</span></div>
+                <div class="vocab-example"><ruby>例<rt>れい</rt></ruby>：<ruby>彼<rt>かれ</rt></ruby>はとてもやさしい<ruby>人<rt>ひと</rt></ruby>です。</div>
+                <div class="vocab-example korean-text">👉 그는 정말 다정한 사람이에요.</div>
+            </div>
+
+            <div class="vocab-item">
+                <div class="vocab-word"><ruby>親友<rt>しんゆう</rt></ruby> — <span class="korean-text">절친</span></div>
+                <div class="vocab-example"><ruby>例<rt>れい</rt></ruby>：<ruby>彼女<rt>かのじょ</rt></ruby>は<ruby>私<rt>わたし</rt></ruby>の<ruby>親友<rt>しんゆう</rt></ruby>です。</div>
+                <div class="vocab-example korean-text">👉 그녀는 나의 절친이에요.</div>
+            </div>
+
+            <div class="vocab-item">
+                <div class="vocab-word"><ruby>人気<rt>にんき</rt></ruby> — <span class="korean-text">인기</span></div>
+                <div class="vocab-example"><ruby>例<rt>れい</rt></ruby>：この<ruby>店<rt>みせ</rt></ruby>はいつも<ruby>人気<rt>にんき</rt></ruby>で<ruby>並<rt>なら</rt></ruby>んでいる。</div>
+                <div class="vocab-example korean-text">👉 이 가게는 항상 인기 있어서 줄 서 있어.</div>
+            </div>
+
+            <div class="vocab-item">
+                <div class="vocab-word"><ruby>助<rt>たす</rt></ruby>ける — <span class="korean-text">돕다</span></div>
+                <div class="vocab-example"><ruby>例<rt>れい</rt></ruby>：<ruby>困<rt>こま</rt></ruby>っている<ruby>人<rt>ひと</rt></ruby>を<ruby>助<rt>たす</rt></ruby>けました。</div>
+                <div class="vocab-example korean-text">👉 곤란한 사람을 도와줬어요.</div>
+            </div>
+
+            <div class="vocab-item">
+                <div class="vocab-word"><ruby>好<rt>す</rt></ruby>き — <span class="korean-text">좋아함</span></div>
+                <div class="vocab-example"><ruby>例<rt>れい</rt></ruby>：<ruby>私<rt>わたし</rt></ruby>は<ruby>音楽<rt>おんがく</rt></ruby>が<ruby>好<rt>す</rt></ruby>きです。</div>
+                <div class="vocab-example korean-text">👉 나는 음악을 좋아해요.</div>
+            </div>
+
+            <div class="vocab-item">
+                <div class="vocab-word"><ruby>思<rt>おも</rt></ruby>う — <span class="korean-text">생각하다</span></div>
+                <div class="vocab-example"><ruby>例<rt>れい</rt></ruby>：そうだと<ruby>思<rt>おも</rt></ruby>います。</div>
+                <div class="vocab-example korean-text">👉 그렇게 생각해요.</div>
+            </div>
+
+            <div class="vocab-item">
+                <div class="vocab-word"><ruby>本当<rt>ほんとう</rt></ruby> — <span class="korean-text">진짜</span></div>
+                <div class="vocab-example"><ruby>例<rt>れい</rt></ruby>：それは<ruby>本当<rt>ほんとう</rt></ruby>ですか。</div>
+                <div class="vocab-example korean-text">👉 그거 진짜예요?</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

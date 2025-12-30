@@ -321,24 +321,21 @@
         }
 
         .section-divider {
-            margin: 30px 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #cbd5e1 20%, #94a3b8 50%, #cbd5e1 80%, transparent);
-            border-radius: 2px;
+            margin: 20px 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e2e8f0 30%, #cbd5e1 50%, #e2e8f0 70%, transparent);
         }
 
         .question-divider {
-            margin: 20px 0;
-            height: 1.5px;
-            background: linear-gradient(90deg, transparent 5%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, transparent 95%);
-            border-radius: 1px;
+            margin: 15px 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 10%, #f1f5f9 40%, #e2e8f0 50%, #f1f5f9 60%, transparent 90%);
         }
 
         .example-divider {
-            margin: 15px 0;
+            margin: 12px 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent 15%, #f1f5f9 35%, #e2e8f0 50%, #f1f5f9 65%, transparent 85%);
-            opacity: 0.7;
+            background: linear-gradient(90deg, transparent 20%, #f8fafc 45%, #e2e8f0 50%, #f8fafc 55%, transparent 80%);
         }
 
         .empty-state {
@@ -614,8 +611,8 @@
             }
 
             // Add dividers between sections
-            // Add divider before each question (①, ②, etc.) - but NOT before ①
-            text = text.replace(/\n([②-⑳])/g, (match, p1) => {
+            // Add divider before each question (①, ②, etc.) - but not the first one
+            text = text.replace(/\n([①-⑳])/g, (match, p1) => {
                 return '\n<div class="question-divider"></div>\n' + p1;
             });
             

@@ -297,7 +297,7 @@
         }
 
         rt {
-            font-size: 0.54em;
+            font-size: 0.56em;
             color: #1e40af;
             font-weight: normal;
             font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
@@ -310,7 +310,7 @@
             border-radius: 12px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.08);
             line-height: 2.5;
-            font-size: 25px;
+            font-size: 20px;
             white-space: pre-wrap;
         }
 
@@ -612,7 +612,7 @@
 
             // Add dividers between sections
             // Add divider before each question (①, ②, etc.) - but not the first one
-            text = text.replace(/\n([①-⑳])/g, (match, p1) => {
+            text = text.replace(/\n([②-⑳])/g, (match, p1) => {
                 return '\n<div class="question-divider"></div>\n' + p1;
             });
             

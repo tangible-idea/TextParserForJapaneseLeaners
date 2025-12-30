@@ -489,8 +489,8 @@
         // Load saved settings from localStorage
         window.addEventListener('load', () => {
             const savedText = localStorage.getItem('furiganaText');
-            const savedFontSize = localStorage.getItem('fontSize') || '25';
-            const savedRubySize = localStorage.getItem('rubySize') || '0.54';
+            const savedFontSize = localStorage.getItem('fontSize') || '20';
+            const savedRubySize = localStorage.getItem('rubySize') || '0.56';
             const savedImage = localStorage.getItem('uploadedImage');
 
             if (savedText) {
@@ -563,7 +563,8 @@
 
         function updateRubySize() {
             const size = rubySizeSlider.value;
-            rubySizeValue.textContent = size + 'em';
+            const percentage = Math.round(size * 100);
+            rubySizeValue.textContent = percentage + '%';
             
             // Update CSS variable or directly update rt elements
             const style = document.createElement('style');

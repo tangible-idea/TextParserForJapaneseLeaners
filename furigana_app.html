@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furigana Converter - 일본어 교재 변환기</title>
+    <title>도우키 교재 변환기</title>
     <style>
         * {
             margin: 0;
@@ -161,6 +161,30 @@
             box-shadow: 0 4px 16px rgba(100, 116, 139, 0.5);
         }
 
+        .btn-upload {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-upload:hover {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-upload input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
         .container {
             display: flex;
             height: calc(100vh - 80px);
@@ -274,7 +298,7 @@
 
         rt {
             font-size: 0.54em;
-            color: #222;
+            color: #1e40af;
             font-weight: normal;
             font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
         }
@@ -292,8 +316,26 @@
 
         .korean-bold {
             font-weight: bold;
-            color: #27ae60;
+            color: #14532d;
             font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+        }
+
+        .section-divider {
+            margin: 20px 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e2e8f0 30%, #cbd5e1 50%, #e2e8f0 70%, transparent);
+        }
+
+        .question-divider {
+            margin: 15px 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 10%, #f1f5f9 40%, #e2e8f0 50%, #f1f5f9 60%, transparent 90%);
+        }
+
+        .example-divider {
+            margin: 12px 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 20%, #f8fafc 45%, #e2e8f0 50%, #f8fafc 55%, transparent 80%);
         }
 
         .empty-state {
@@ -313,7 +355,12 @@
         }
 
         @media print {
-            .header, .editor-pane {
+            @page {
+                margin: 0;
+                size: auto;
+            }
+
+            .header, .editor-pane, .pane-header {
                 display: none !important;
             }
 
@@ -333,12 +380,34 @@
                 box-shadow: none;
                 page-break-inside: avoid;
             }
+
+            .cover-image {
+                margin-bottom: 20px;
+                page-break-after: avoid;
+            }
+
+            .title {
+                page-break-after: avoid;
+            }
+
+            .subtitle {
+                page-break-after: avoid;
+            }
+
+            .preview-inner {
+                page-break-inside: avoid;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>📚 도우키 교재 만들기</h1>
+        <h1>📚 도우키 교재 만들기 </h1>
         <div class="header-buttons">
             <div class="controls-panel">
                 <div class="control-group">
@@ -356,7 +425,11 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-clear" onclick="clearText()">🗑️ 초기화</button>
+            <button class="btn btn-upload">
+                이미지 업로드
+                <input type="file" id="image-upload" accept="image/*" onchange="handleImageUpload(event)">
+            </button>
+            <button class="btn btn-clear" onclick="clearText()">초기화</button>
             <button class="btn btn-export" onclick="exportToPDF()">📥 PDF 내보내기</button>
         </div>
     </div>
@@ -387,14 +460,21 @@
         const rubySizeValue = document.getElementById('ruby-size-value');
         let debounceTimer;
 
+        let uploadedImageData = null;
+
         // Load saved settings from localStorage
         window.addEventListener('load', () => {
             const savedText = localStorage.getItem('furiganaText');
             const savedFontSize = localStorage.getItem('fontSize') || '25';
             const savedRubySize = localStorage.getItem('rubySize') || '0.54';
+            const savedImage = localStorage.getItem('uploadedImage');
 
             if (savedText) {
                 inputText.value = savedText;
+            }
+
+            if (savedImage) {
+                uploadedImageData = savedImage;
             }
 
             fontSizeSlider.value = savedFontSize;
@@ -403,6 +483,38 @@
             updateRubySize();
             updatePreview();
         });
+
+        // Handle image upload
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImageData = e.target.result;
+                    localStorage.setItem('uploadedImage', uploadedImageData);
+                    updatePreview();
+                    
+                    // Show notification
+                    const notification = document.createElement('div');
+                    notification.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: #8b5cf6;
+                        color: white;
+                        padding: 15px 25px;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                        z-index: 1000;
+                        font-family: "Apple SD Gothic Neo", sans-serif;
+                    `;
+                    notification.textContent = '✓ 이미지가 업로드되었습니다';
+                    document.body.appendChild(notification);
+                    setTimeout(() => notification.remove(), 2000);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
 
         // Font size slider
         fontSizeSlider.addEventListener('input', () => {
@@ -474,6 +586,18 @@
                 text = newText;
             }
 
+            // Add dividers between sections
+            // Add divider before each question (①, ②, etc.) - but not the first one
+            text = text.replace(/\n([①-⑳])/g, (match, p1) => {
+                return '\n<div class="question-divider"></div>\n' + p1;
+            });
+            
+            // Add divider before example sentences (🔹)
+            text = text.replace(/\n(🔹)/g, '\n<div class="example-divider"></div>\n$1');
+            
+            // Add section divider before vocabulary sections (📖 単語)
+            text = text.replace(/\n(📖\s*単語)/g, '\n<div class="section-divider"></div>\n$1');
+
             // Make Korean words bold
             // Pattern 1: Korean after "단어：" or "단어・"
             text = text.replace(/(단어[：・][^\s]+\s+)([가-힣]+)/g, '$1<strong class="korean-bold">$2</strong>');
@@ -513,6 +637,11 @@
                 html += `<h2 class="subtitle">${subtitle}</h2>`;
             }
 
+            // Add uploaded image if exists
+            if (uploadedImageData) {
+                html += `<img src="${uploadedImageData}" alt="Cover Image" class="cover-image">`;
+            }
+
             // Add content
             const content = lines.slice(contentStart).join('\n');
             html += `<div class="content-section">${content}</div>`;
@@ -530,7 +659,9 @@
         function clearText() {
             if (confirm('모든 내용을 삭제하시겠습니까?')) {
                 inputText.value = '';
+                uploadedImageData = null;
                 localStorage.removeItem('furiganaText');
+                localStorage.removeItem('uploadedImage');
                 updatePreview();
             }
         }

@@ -19,23 +19,111 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: white;
             padding: 20px 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 2px solid #3b82f6;
         }
 
         .header h1 {
             font-size: 24px;
             font-weight: 600;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header-buttons {
             display: flex;
             gap: 10px;
+            align-items: center;
+        }
+
+        .controls-panel {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-right: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-label {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slider {
+            width: 120px;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(96, 165, 250, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.6);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(96, 165, 250, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .slider::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.6);
+        }
+
+        .slider-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #60a5fa;
+            min-width: 40px;
+            text-align: center;
         }
 
         .btn {
@@ -50,25 +138,27 @@
         }
 
         .btn-export {
-            background-color: #10b981;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
         }
 
         .btn-export:hover {
-            background-color: #059669;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.5);
         }
 
         .btn-clear {
-            background-color: #ef4444;
+            background: linear-gradient(135deg, #64748b, #475569);
             color: white;
+            box-shadow: 0 2px 8px rgba(100, 116, 139, 0.3);
         }
 
         .btn-clear:hover {
-            background-color: #dc2626;
+            background: linear-gradient(135deg, #475569, #334155);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+            box-shadow: 0 4px 16px rgba(100, 116, 139, 0.5);
         }
 
         .container {
@@ -80,17 +170,17 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            background-color: #1e1e1e;
-            border-right: 2px solid #333;
+            background-color: #0f172a;
+            border-right: 2px solid #1e293b;
         }
 
         .pane-header {
             padding: 15px 20px;
-            background-color: #2d2d2d;
-            color: #e0e0e0;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: #e2e8f0;
             font-weight: 600;
             font-size: 14px;
-            border-bottom: 1px solid #404040;
+            border-bottom: 2px solid #3b82f6;
             font-family: "Apple SD Gothic Neo", sans-serif;
         }
 
@@ -98,8 +188,8 @@
             flex: 1;
             padding: 20px;
             border: none;
-            background-color: #1e1e1e;
-            color: #d4d4d4;
+            background-color: #0f172a;
+            color: #e2e8f0;
             font-size: 16px;
             line-height: 1.8;
             resize: none;
@@ -108,6 +198,11 @@
 
         #input-text:focus {
             outline: none;
+            background-color: #1e293b;
+        }
+
+        #input-text::placeholder {
+            color: #64748b;
         }
 
         .preview-pane {
@@ -178,8 +273,8 @@
         }
 
         rt {
-            font-size: 0.5em;
-            color: #e74c3c;
+            font-size: 0.54em;
+            color: #222;
             font-weight: normal;
             font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
         }
@@ -191,7 +286,7 @@
             border-radius: 12px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.08);
             line-height: 2.5;
-            font-size: 18px;
+            font-size: 25px;
             white-space: pre-wrap;
         }
 
@@ -243,8 +338,24 @@
 </head>
 <body>
     <div class="header">
-        <h1>📚 Furigana Converter - 일본어 교재 변환기</h1>
+        <h1>📚 도우키 교재 만들기</h1>
         <div class="header-buttons">
+            <div class="controls-panel">
+                <div class="control-group">
+                    <label class="control-label">폰트 크기</label>
+                    <div class="slider-container">
+                        <input type="range" min="14" max="40" value="25" class="slider" id="font-size-slider">
+                        <span class="slider-value" id="font-size-value">25px</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">독음 크기</label>
+                    <div class="slider-container">
+                        <input type="range" min="0.3" max="0.8" step="0.01" value="0.54" class="slider" id="ruby-size-slider">
+                        <span class="slider-value" id="ruby-size-value">0.54em</span>
+                    </div>
+                </div>
+            </div>
             <button class="btn btn-clear" onclick="clearText()">🗑️ 초기화</button>
             <button class="btn btn-export" onclick="exportToPDF()">📥 PDF 내보내기</button>
         </div>
@@ -270,16 +381,68 @@
     <script>
         const inputText = document.getElementById('input-text');
         const previewContent = document.getElementById('preview-content');
+        const fontSizeSlider = document.getElementById('font-size-slider');
+        const fontSizeValue = document.getElementById('font-size-value');
+        const rubySizeSlider = document.getElementById('ruby-size-slider');
+        const rubySizeValue = document.getElementById('ruby-size-value');
         let debounceTimer;
 
-        // Load saved text from localStorage
+        // Load saved settings from localStorage
         window.addEventListener('load', () => {
             const savedText = localStorage.getItem('furiganaText');
+            const savedFontSize = localStorage.getItem('fontSize') || '25';
+            const savedRubySize = localStorage.getItem('rubySize') || '0.54';
+
             if (savedText) {
                 inputText.value = savedText;
-                updatePreview();
             }
+
+            fontSizeSlider.value = savedFontSize;
+            rubySizeSlider.value = savedRubySize;
+            updateFontSize();
+            updateRubySize();
+            updatePreview();
         });
+
+        // Font size slider
+        fontSizeSlider.addEventListener('input', () => {
+            updateFontSize();
+            localStorage.setItem('fontSize', fontSizeSlider.value);
+        });
+
+        function updateFontSize() {
+            const size = fontSizeSlider.value;
+            fontSizeValue.textContent = size + 'px';
+            const contentSections = document.querySelectorAll('.content-section');
+            contentSections.forEach(section => {
+                section.style.fontSize = size + 'px';
+            });
+        }
+
+        // Ruby size slider
+        rubySizeSlider.addEventListener('input', () => {
+            updateRubySize();
+            localStorage.setItem('rubySize', rubySizeSlider.value);
+        });
+
+        function updateRubySize() {
+            const size = rubySizeSlider.value;
+            rubySizeValue.textContent = size + 'em';
+            
+            // Update CSS variable or directly update rt elements
+            const style = document.createElement('style');
+            style.id = 'dynamic-ruby-style';
+            const existingStyle = document.getElementById('dynamic-ruby-style');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+            style.textContent = `
+                rt {
+                    font-size: ${size}em !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
 
         // Auto-save and update preview on input
         inputText.addEventListener('input', () => {

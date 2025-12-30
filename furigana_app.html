@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furigana Converter - 일본어 교재 변환기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", serif;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "Apple SD Gothic Neo", sans-serif;
+        }
+
+        .btn-export {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .btn-export:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-clear {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+
+        .editor-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #1e1e1e;
+            border-right: 2px solid #333;
+        }
+
+        .pane-header {
+            padding: 15px 20px;
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 1px solid #404040;
+            font-family: "Apple SD Gothic Neo", sans-serif;
+        }
+
+        #input-text {
+            flex: 1;
+            padding: 20px;
+            border: none;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-size: 16px;
+            line-height: 1.8;
+            resize: none;
+            font-family: "Yu Mincho", "Hiragino Mincho ProN", monospace;
+        }
+
+        #input-text:focus {
+            outline: none;
+        }
+
+        .preview-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        #preview-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background-color: #fefefe;
+        }
+
+        #preview-content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        #preview-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        #preview-content::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+
+        #preview-content::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .preview-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 35px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        .cover-image {
+            display: block;
+            margin: 0 auto 50px auto;
+            max-width: 450px;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        ruby {
+            ruby-align: center;
+        }
+
+        rt {
+            font-size: 0.5em;
+            color: #e74c3c;
+            font-weight: normal;
+            font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+        }
+
+        .content-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            line-height: 2.5;
+            font-size: 18px;
+            white-space: pre-wrap;
+        }
+
+        .korean-bold {
+            font-weight: bold;
+            color: #27ae60;
+            font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 100px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state-text {
+            font-size: 18px;
+            font-family: "Apple SD Gothic Neo", sans-serif;
+        }
+
+        @media print {
+            .header, .editor-pane {
+                display: none !important;
+            }
+
+            .container {
+                height: auto;
+            }
+
+            .preview-pane {
+                border: none;
+            }
+
+            #preview-content {
+                padding: 20px;
+            }
+
+            .content-section {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 Furigana Converter - 일본어 교재 변환기</h1>
+        <div class="header-buttons">
+            <button class="btn btn-clear" onclick="clearText()">🗑️ 초기화</button>
+            <button class="btn btn-export" onclick="exportToPDF()">📥 PDF 내보내기</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="editor-pane">
+            <div class="pane-header">📝 텍스트 입력</div>
+            <textarea id="input-text" placeholder="여기에 일본어 텍스트를 입력하세요...&#10;&#10;예시:&#10;俺物語１話&#10;내이야기 1 화&#10;줄거리&#10;主人公（しゅじんこう）の 剛田猛男（ごうだ たけお）は、体が大きくてこわそうな高校生です。"></textarea>
+        </div>
+
+        <div class="preview-pane">
+            <div class="pane-header">👁️ 미리보기</div>
+            <div id="preview-content">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📖</div>
+                    <div class="empty-state-text">왼쪽에 텍스트를 입력하면<br>여기에 변환된 결과가 표시됩니다</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const inputText = document.getElementById('input-text');
+        const previewContent = document.getElementById('preview-content');
+        let debounceTimer;
+
+        // Load saved text from localStorage
+        window.addEventListener('load', () => {
+            const savedText = localStorage.getItem('furiganaText');
+            if (savedText) {
+                inputText.value = savedText;
+                updatePreview();
+            }
+        });
+
+        // Auto-save and update preview on input
+        inputText.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                localStorage.setItem('furiganaText', inputText.value);
+                updatePreview();
+            }, 300);
+        });
+
+        function convertFuriganaToHTML(text) {
+            if (!text.trim()) {
+                return `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📖</div>
+                        <div class="empty-state-text">왼쪽에 텍스트를 입력하면<br>여기에 변환된 결과가 표시됩니다</div>
+                    </div>
+                `;
+            }
+
+            // Handle line breaks in furigana patterns
+            text = text.replace(/([一-龯々])\n[（(]([ぁ-んァ-ン\s]+)[）)]/g, '$1（$2）');
+
+            // Convert kanji with furigana to ruby tags
+            const kanjiPattern = /([一-龯々]+)[（(]([ぁ-んァ-ン\s]+)[）)]/g;
+            for (let i = 0; i < 3; i++) {
+                const newText = text.replace(kanjiPattern, '<ruby>$1<rt>$2</rt></ruby>');
+                if (newText === text) break;
+                text = newText;
+            }
+
+            // Make Korean words bold
+            // Pattern 1: Korean after "단어：" or "단어・"
+            text = text.replace(/(단어[：・][^\s]+\s+)([가-힣]+)/g, '$1<strong class="korean-bold">$2</strong>');
+
+            // Pattern 2: Korean after "—"
+            text = text.replace(/(—\s*)([가-힣]+)/g, '$1<strong class="korean-bold">$2</strong>');
+
+            // Pattern 3: Korean after "👉"
+            text = text.replace(/(👉\s*)([가-힣][^\n]+)/g, '$1<strong class="korean-bold">$2</strong>');
+
+            // Extract title and subtitle if present
+            const lines = text.split('\n');
+            let title = '';
+            let subtitle = '';
+            let contentStart = 0;
+
+            if (lines.length >= 2) {
+                const firstLine = lines[0].trim();
+                const secondLine = lines[1].trim();
+                
+                // Check if first two lines look like title/subtitle
+                if (firstLine && secondLine && 
+                    /[一-龯々ぁ-んァ-ン]/.test(firstLine) && 
+                    /[가-힣]/.test(secondLine)) {
+                    title = firstLine;
+                    subtitle = secondLine;
+                    contentStart = 2;
+                }
+            }
+
+            let html = '<div class="preview-inner">';
+            
+            if (title) {
+                html += `<h1 class="title">${title}</h1>`;
+            }
+            if (subtitle) {
+                html += `<h2 class="subtitle">${subtitle}</h2>`;
+            }
+
+            // Add content
+            const content = lines.slice(contentStart).join('\n');
+            html += `<div class="content-section">${content}</div>`;
+            html += '</div>';
+
+            return html;
+        }
+
+        function updatePreview() {
+            const text = inputText.value;
+            const html = convertFuriganaToHTML(text);
+            previewContent.innerHTML = html;
+        }
+
+        function clearText() {
+            if (confirm('모든 내용을 삭제하시겠습니까?')) {
+                inputText.value = '';
+                localStorage.removeItem('furiganaText');
+                updatePreview();
+            }
+        }
+
+        function exportToPDF() {
+            if (!inputText.value.trim()) {
+                alert('내보낼 내용이 없습니다. 먼저 텍스트를 입력해주세요.');
+                return;
+            }
+
+            // Use browser's print dialog for PDF export
+            window.print();
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + S to save (already auto-saved, just show message)
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #10b981;
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                    font-family: "Apple SD Gothic Neo", sans-serif;
+                `;
+                notification.textContent = '✓ 자동 저장됨';
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 2000);
+            }
+
+            // Ctrl/Cmd + P to export PDF
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                exportToPDF();
+            }
+        });
+    </script>
+</body>
+</html>
